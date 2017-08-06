@@ -1,0 +1,94 @@
+
+    <!--
+    <div class="pagepiling">
+        <div class=" section pp-scrollable text-center login-headline">
+            <p class="login-headline-top">Welcome to FLM BMSIT</p>
+            <p class="login-headline-below">Please login using your BMSIT credentials below</p>
+        </div>
+        <div class="section pp-scrollable login-button"></div>
+    </div>-->
+{% load static %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+        <p>Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
+    {% endif %}
+{% endif %}
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Welcome | FLM</title>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.pagepiling.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/examples.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}" />
+    
+    <script type="text/javascript" src="{% static 'js/jquery.pagepiling.min.js' %}"></script>
+    <script type="text/javascript">
+        var deleteLog = false;
+
+        $(document).ready(function() {
+            $('#pagepiling').pagepiling({
+                menu: '#menu',
+                anchors: ['page1', 'page2', 'page3'],
+                navigation: {
+                    'textColor': '#f2f2f2',
+                    'bulletsColor': '#ccc',
+                    'position': 'right',
+                    'tooltips': ['Page 1', 'Page 2', 'Page 3', 'Page 4']
+                }
+            });
+        });
+    </script>
+
+</head>
+<body>
+
+    <ul id="menu">
+        <li data-menuanchor="Home" class="active"><a href="#page1">Home</a></li>
+        <li data-menuanchor="Login"><a href="#page2">Login</a></li>
+        <h2 style="text-align: right; padding-right: 5%;">Developed at Department of CSE</h2>
+    </ul>
+
+    <div id="pagepiling">
+        <div class="section" id="section1">
+            <h1>Welcome to FLM-BMSIT</h1>
+            {% if form.errors %}
+                <p style="padding-top: 3%; font-weight: bold;">Your username and password didn't match. Please try again.</p>
+            <p style="margin-bottom: 20%;">Scroll down below to login</p>
+            {% endif %}
+        </div>
+        <div class="section" id="section2">
+            <div class="intro">
+                <h1>Login</h1>
+                <p style="padding-top: 2%">Please enter your BMSIT credentials below</p>
+                {% if form.errors %}
+                    <p style="padding-top: 3%; font-weight: bold;">Your username and password didn't match. Please try again.</p>
+                {% endif %}
+                <center>
+                <form method="post" action="{% url 'login' %}" style="padding: 10% 0% 0% 0%;">
+{% csrf_token %}
+                    <p class="bs-component">
+                        <p>{{ form.username }}</p>
+                        <br>                    
+                        <p>{{ form.password }}</p>
+                    </p>
+                    <br>
+                    <a class="btn btn-primary" href="/password_reset/">Forgot Password</a>
+                    <input class="btn btn-success" type="submit" value="login" /> 
+                    </center>
+                    <input type="hidden" name="next" value="{{ next }}" />
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
+
+
+
+

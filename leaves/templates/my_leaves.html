@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>FLM | BMSIT</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/ionicons.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/style.css') }}">
+        <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    </head>
+    <body class="skin-black">
+        <header class="header">
+            <a href="index.html" class="logo">
+                Faculty
+            </a>
+            <nav class="navbar navbar-static-top" role="navigation">
+                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown messages-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-envelope"></i>
+                                <span class="label label-success"> {{ n_msg }} </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">You have {{ n_msg }} messages</li>
+                                <li>
+                                    <ul class="menu">
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="{{ url_for('static', filename='') }}" class="img-circle" alt="User Image"/>
+                                                </div>
+                                                <h4>
+                                                   {{ hod_name }}
+                                                    <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                                </h4>
+                                                <p>Your leave has been granted</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="{{ url_for('static', filename='') }}" class="img-circle" alt="user image"/>
+                                                </div>
+                                                <h4>
+                                                    {{ hod_name }}
+                                                    <small><i class="fa fa-clock-o"></i> 2 hours</small>
+                                                </h4>
+                                                <p>Departmnet meeting</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">See All Messages</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-user"></i>
+                                <span> {{ fa_name }} <i class="caret"></i></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
+                                <li class="dropdown-header text-center">Account</li>
+                                <li class="divider"></li>
+
+                                    <li>
+                                        <a href="#">
+                                        <i class="fa fa-user fa-fw pull-right"></i>
+                                            Profile
+                                        </a>
+                                        <a data-toggle="modal" href="#modal-user-settings">
+                                        <i class="fa fa-cog fa-fw pull-right"></i>
+                                            Settings
+                                        </a>
+                                        </li>
+
+                                        <li class="divider"></li>
+
+                                        <li>
+                                            <a href="#"><i class="fa fa-ban fa-fw pull-right"></i> Logout</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div class="wrapper row-offcanvas row-offcanvas-left">
+            <aside class="left-side sidebar-offcanvas">
+                <section class="sidebar">
+                    <div class="user-panel">
+                        <div class="pull-left image">
+                            <img src="{{ url_for('static', filename='') }}" class="img-circle" alt="User Image" />
+                        </div>
+                        <div class="pull-left info">
+                            <p> {{ fa_name }}</p>
+
+                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        </div>
+                    </div>
+                    <ul class="sidebar-menu">
+                        <li>
+                            <a href="/home">
+                                <i class="fa fa-home"></i> <span>Home</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/apply">
+                                <i class="fa fa-pencil-square-o"></i> <span>Apply for a leave</span>
+                            </a>
+                        </li>
+
+                        <li class="active">
+                            <a href="/my-leaves">
+                                <i class="fa fa-arrow-circle-right"></i> <span>Upcoming leaves</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="history">
+                                <i class="fa fa-history"></i> <span>History</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </section>
+            </aside>
+            <aside class="right-side">
+                <section class="panel">
+                                <header class="panel-heading">
+                                     Your Upcoming Leaves
+                                </header>
+                                <div class="panel-body">
+                                    <p>Name: {{n}}</p>
+                                    <p>Total Days: {{d}}</p><p>Approved = {{s}}</p>
+                                </div>
+                </section>
+            </aside>
+</div>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+        <script src="{{ url_for('static', filename = 'js/jquery.min.js')}}"></script>
+        <script src="{{ url_for('static', filename = 'js/bootstrap.min.js')}}"></script>
+        <script src="{{ url_for('static', filename = 'js/Director/app.js')}}"></script>
+
+    </body>
+</html>

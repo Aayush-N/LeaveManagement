@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Home | FLM-BMSIT</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/morris/morris.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jvectormap/jquery-jvectormap-1.2.2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/datepicker/datepicker3.css' %}">
+    <link rel="stylesheet" href="{% static 'css/iCheck/all.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/top-dropdown.css' %}">
+    <link href=//fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    {% include 'snippets/js.html' %}
+    <script>
+       
+    </script>
+    <style>
+    </style>
+      </head>
+      <body class="skin-black">
+        <header class="header">
+            <a href="/" class="logo">
+                Faculty
+            </a>
+            <nav class="navbar navbar-static-top" role="navigation">
+                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                
+                    <ul class="nav navbar-nav" style="float: right;margin-right: 1%;background-color: #323A52;">
+                        <li class="dropdown" >
+                            <button class="dropbtn">{{ fa_name }} </button>
+                            <div class="dropdown-content">
+                                <a href="/account"><i class="fa fa-user fa-fw pull-right"></i>Account</a>
+                                <a href="/password_reset/"><i class="fa fa-lock fa-fw pull-right"></i>Change Password</a>
+                                <a href="/help"><i class="fa fa-cog fa-info-circle pull-right"></i>Help</a>
+                                <a href="/logout"><i class="fa fa-sign-out pull-right" aria-hidden="true"></i>Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+
+            </nav>
+        </header>
+        <div class="wrapper row-offcanvas row-offcanvas-left">
+            <aside class="left-side sidebar-offcanvas">
+                <section class="sidebar">
+                    <div class="user-panel">
+                        <div class="pull-left image">
+                            <img src="{{ user.userprofile.image.url }}" class="img-circle" alt="User Image" />
+                        </div>
+                        <div class="pull-left info">
+                            <p>{{ fa_name }}</p>
+
+                            <a href="#"><i class="fa fa-circle text-success"></i> {{fa_desig}} </a>
+                        </div>
+                    </div>
+                    <ul class="sidebar-menu">
+                        <li class="active">
+                            <a href="/">
+                                <i class="fa fa-home"></i> <span>Home</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/apply">
+                                <i class="fa fa-pencil-square-o"></i> <span>Apply for a leave</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="my-leaves">
+                                <i class="fa fa-arrow-circle-right"></i> <span>My leaves</span>
+                            </a>
+                        </li>
+                        {% if fa_desig == 'Assistant Professor' %}
+                        <li>
+                            <a href="/approvals">
+                                <i class="fa fa-check-circle"></i> <span>Approvals</span>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                    </ul>
+                </section>
+            </aside>
+
+            <aside class="right-side">
+            <section class="content">
+            {% if messages %}
+              <ul class="messages">
+                {% for message in messages %}
+                  <div class="alert alert-success alert-dismissable fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Success!</strong>{{message}}
+                    </div>
+                {% endfor %}
+              </ul>
+            {% endif %}
+                <div class="row" style="margin-bottom:5px;"> 
+                    <header class="panel-heading">Your Remaining Leaves</header>
+                    <div class="col-md-4">
+                        <div class="sm-st clearfix">
+                            <span class="sm-st-icon st-violet"><i class="fa fa-list-alt"></i></span>
+                            <div class="sm-st-info">
+                                <span> {{ cl }} </span>
+                                CL Remaining
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="sm-st clearfix">
+                            <span class="sm-st-icon st-violet"><i class="fa fa-list-alt"></i></span>
+                            <div class="sm-st-info">
+                                <span>{{ el }}</span>
+                                EL Remaining
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="sm-st clearfix">
+                            <span class="sm-st-icon st-violet"><i class="fa fa-list-alt"></i></span>
+                            <div class="sm-st-info">
+                                <span>{{ rh }}</span>
+                                RH Remaining
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if applied == 'yes' %}
+                <div class="row" style="margin-bottom:5px;"> 
+                    <header class="panel-heading">Leaves Pending Approvals</header>
+                    <div class="col-md-4">
+                        <div class="sm-st clearfix">
+                            <span class="sm-st-icon st-blue"><i class="fa fa-list-alt"></i></span>
+                            <div class="sm-st-info">
+                                <span> {{ tcl }} </span>
+                                Casual Leave
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="sm-st clearfix">
+                            <span class="sm-st-icon st-blue"><i class="fa fa-list-alt"></i></span>
+                            <div class="sm-st-info">
+                                <span>{{ tel }}</span>
+                                Earned Leave
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="sm-st clearfix">
+                            <span class="sm-st-icon st-blue"><i class="fa fa-list-alt"></i></span>
+                            <div class="sm-st-info">
+                                <span>{{ trh }}</span>
+                                Reserved Holiday
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col-md-8 pull-left">
+                        <section class="panel">
+                            <header class="panel-heading">
+                                Upcoming Birthdays This Month
+                            </header>
+                            <div class="panel-body">
+                            {% for i, j in bday %}
+                                <span class="sm-st-icon st-red"><i class="fa fa-gift"></i></span>
+                                <div class="sm-st-info" style="padding-top: 1%;">
+                                <span class="pull-left">{{i}}</span><span class="pull-right">{{j}}</span>  
+                                </div>
+                                <br>
+                                <br>
+                                <hr>
+                            {% endfor %}
+                            </div>
+                        </section>
+                    </div>
+                    <div class="col-md-4 pull-right">
+                        <iframe id="forecast_embed" type="text/html" frameborder="0" height="245" width = "100%" src="//forecast.io/embed/#lat=13.1333&lon=77.5653&name=BMS Institute of Technology&color=#00aaff&units=ca">
+                        </iframe>
+                        <!--section class="panel">
+                            <header class="panel-heading">
+                                Current Weather
+                            </header>
+                            <div class="panel-body">
+                                <span class="sm-st-icon st-red"><i class="fa fa-spin fa-sun-o"></i></span>
+                                <div class="sm-st-info">
+                                    <span>27&#8451;</span>
+                                    Current Weather
+                                </div>
+                            </div>
+                        </section-->
+                    </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js" type="text/javascript"></script>
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/jquery-ui-1.10.3.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/plugins/daterangepicker/daterangepicker.js' %}"></script>
+        <script src="{% static 'js/plugins/chart.js' %}"></script>
+        <script src="{% static 'js/plugins/iCheck/icheck.min.js' %}"></script>
+        <script src="{% static 'js/plugins/fullcalendar/fullcalendar.js' %}"></script>
+        <script src="{% static 'js/Director/app.js' %}"></script>
+        <script src="{% static 'js/Director/dashboard.js' %}"></script>
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script type="text/javascript">
+            $('input').on('ifChecked', function(event) {
+                $(this).parents('li').addClass("task-done");
+                console.log('ok');
+            });
+            $('input').on('ifUnchecked', function(event) {
+                $(this).parents('li').removeClass("task-done");
+                console.log('not');
+            });
+
+        </script>
+        <script>
+            $('#noti-box').slimScroll({
+                height: '400px',
+                size: '5px',
+                BorderRadius: '5px'
+            });
+
+            $('input[type="checkbox"].flat-grey, input[type="radio"].flat-grey').iCheck({
+                checkboxClass: 'icheckbox_flat-grey',
+                radioClass: 'iradio_flat-grey'
+            });
+</script>
+<script type="text/javascript">
+    $(function() {
+                "use strict";
+                var data = {
+                    labels: ["January", "February", "March", "April", "May", "June", "July"],
+                    datasets: [
+                        {
+                            label: "My First dataset",
+                            fillColor: "rgba(220,220,220,0.2)",
+                            strokeColor: "rgba(220,220,220,1)",
+                            pointColor: "rgba(220,220,220,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(220,220,220,1)",
+                            data: [65, 59, 80, 81, 56, 55, 40]
+                        },
+                        {
+                            label: "My Second dataset",
+                            fillColor: "rgba(151,187,205,0.2)",
+                            strokeColor: "rgba(151,187,205,1)",
+                            pointColor: "rgba(151,187,205,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(151,187,205,1)",
+                            data: [28, 48, 40, 19, 86, 27, 90]
+                        }
+                    ]
+                };
+            new Chart(document.getElementById("linechart").getContext("2d")).Line(data,{
+                responsive : true,
+                maintainAspectRatio: false,
+            });
+
+            });
+</script>
+</body>
+</html>

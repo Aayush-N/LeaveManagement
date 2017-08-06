@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Manage Account | FLM-BMSIT</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+        <link href='//fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/top-dropdown.css' %}">
+    </head>
+    <body class="skin-black">
+        <header class="header">
+            <a href="/" class="logo">
+                Faculty
+            </a>
+            <nav class="navbar navbar-static-top" role="navigation">
+                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <ul class="nav navbar-nav" style="float: right;margin-right: 1%;background-color: #323A52;">
+                  <li class="dropdown" >
+                      <button class="dropbtn">{{ fa_name }} </button>
+                      <div class="dropdown-content">
+                          <a href="/account"><i class="fa fa-user fa-fw pull-right"></i>Account</a>
+                          <a href="/password_reset/"><i class="fa fa-lock fa-fw pull-right"></i>Change Password</a>
+                          <a href="/help"><i class="fa fa-cog fa-info-circle pull-right"></i>Help</a>
+                          <a href="/logout"><i class="fa fa-sign-out pull-right" aria-hidden="true"></i>Logout</a>
+                      </div>
+                  </li>
+                </ul>
+            </nav>
+        </header>
+        <div class="wrapper row-offcanvas row-offcanvas-left">
+            <aside class="left-side sidebar-offcanvas">
+                <section class="sidebar">
+                    <div class="user-panel">
+                        
+                        <div class="pull-left info">
+                            <p> {{ fa_name }} </p>
+                            <br>
+                            <p>{{fa_desig}} - {{fa_dep}}</p>
+                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        </div>
+                    </div>
+                    <ul class="sidebar-menu">
+
+                        <li>
+                            <a href="/">
+                                <i class="fa fa-home"></i> <span>Home</span>
+                            </a>
+                        </li>
+                         <li class="active">
+                            <a href="/apply">
+                                <i class="fa fa-pencil-square-o"></i> <span>Apply for a leave</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/my-leaves">
+                                <i class="fa fa-arrow-circle-right"></i> <span>My leaves</span>
+                            </a>
+                        </li>
+
+                        {% if fa_desig == 'HOD' %}
+                        <li>
+                            <a href="/approvals">
+                                <i class="fa fa-check-circle"></i> <span>Approvals</span>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                    </ul>
+                </section>
+            </aside>
+            <aside class="right-side">
+                <section class="panel">
+                    <header class="panel-heading text-center">
+                         Faculty Leave Management - Manage Your Account
+                    </header>
+                    <div class="panel-body">
+                      <h1>Add a template and improve this page!</h1>
+                    </div>
+                </section>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/Director/app.js' %}"></script>
+        <script>
+        $(document).ready(function(){
+          $("#form-control").change(function(){
+            $("#cat").val($(this).find("option:selected").text());
+          });
+
+        });
+        $(document).ready(function(){
+            $('#form-control').on('change', function() {
+                $("#form-group").css('display', (this.value == 'cl' || this.value == 'rh') ? 'block' : 'none');
+            });
+        });
+        </script>
+    </body>
+</html>
